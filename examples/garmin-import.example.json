@@ -1,0 +1,25 @@
+{
+  "activities": [
+    {
+      "activityId": "voorbeeld-12345",
+      "name": "Voorbeeld rustige duurloop",
+      "activityType": "running",
+      "startedAt": "2026-11-17T09:00:00+01:00",
+      "durationMinutes": 45,
+      "distanceKm": 7.4,
+      "avgHeartRate": 139,
+      "maxHeartRate": 154,
+      "heartRateZones": {
+        "zone1Seconds": 180,
+        "zone2Seconds": 1980,
+        "zone3Seconds": 540,
+        "zone4Seconds": 0,
+        "zone5Seconds": 0
+      },
+      "aerobicEffect": 2.8,
+      "anaerobicEffect": 0.1,
+      "trainingLoad": 72,
+      "device": "Garmin"
+    }
+  ]
+}

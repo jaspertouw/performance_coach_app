@@ -1,0 +1,33 @@
+.garmin-card { margin-top: 10px; background: linear-gradient(135deg, #17262d, #151c18); border: 1px solid var(--line); border-radius: 18px; padding: 17px; }
+.garmin-card.empty { border-style: dashed; background: var(--surface); }
+.garmin-title { display: flex; align-items: center; gap: 8px; }
+.garmin-mark, .source-badge.garmin { color: #74b7ff; }
+.garmin-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
+.garmin-metric strong { display: block; }
+.garmin-metric span, .field-help { color: var(--muted); font-size: .72rem; }
+.zone-strip { display: flex; height: 7px; border-radius: 8px; overflow: hidden; margin-top: 14px; background: var(--surface-2); }
+.zone-strip span:nth-child(1) { background: #7d94a8; }
+.zone-strip span:nth-child(2) { background: #57b98d; }
+.zone-strip span:nth-child(3) { background: #d5d958; }
+.zone-strip span:nth-child(4) { background: #f0a84f; }
+.zone-strip span:nth-child(5) { background: #e96f6b; }
+.zone-legend { display: flex; justify-content: space-between; color: var(--muted); font-size: .62rem; margin-top: 5px; }
+.plan-preview-list { display: grid; gap: 6px; margin: 12px 0; }
+.plan-preview-list div { display: grid; grid-template-columns: 72px 1fr; gap: 2px 8px; padding: 9px; background: var(--surface-2); border-radius: 9px; }
+.plan-preview-list span { color: var(--lime); font-size: .7rem; font-weight: 800; grid-row: 1 / 3; }
+.plan-preview-list strong { font-size: .82rem; }
+.plan-preview-list small { color: var(--muted); }
+.exercise-editor select { margin: 0; }
+.exercise-illustration { display: grid; place-items: center; background: radial-gradient(circle, #2c4937, #18251d); border: 1px solid #38523f; border-radius: 20px; overflow: hidden; }
+.exercise-illustration svg { width: 100%; height: 100%; }
+.exercise-photo { width: 100%; height: 100%; object-fit: contain; grid-area: 1 / 1; }
+.exercise-photo.frame-2 { animation: exercise-frame 3.2s ease-in-out infinite; }
+@keyframes exercise-frame { 0%, 38% { opacity: 0; } 50%, 88% { opacity: 1; } 100% { opacity: 0; } }
+.player-illustration { width: min(230px, 58vw); height: min(190px, 45vw); margin: 12px; }
+.routine-thumbs { display: flex; gap: 5px; margin-top: 10px; }
+.routine-thumb { width: 52px; height: 46px; border-radius: 8px; }
+.pose-line { stroke: var(--lime); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+.pose-joint { fill: var(--lime); }
+.pose-floor { stroke: #5f7767; stroke-width: 3; stroke-linecap: round; }
+.pose-arrow { stroke: var(--teal); stroke-width: 4; fill: none; stroke-linecap: round; stroke-dasharray: 5 5; }
+.source-badge { font-size: .63rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }

@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#111713">
+  <meta name="description" content="Persoonlijke training, mobiliteit en voortgang in één eenvoudige app.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./icons/icon.svg">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./enhancements.css">
+  <title>Form — Performance Coach</title>
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <p class="eyebrow" id="todayLabel"></p>
+      <h1>Goed bezig, Jasper</h1>
+    </div>
+    <button class="icon-button" id="settingsButton" aria-label="Back-up en instellingen">•••</button>
+  </header>
+
+  <main>
+    <section class="view active" id="todayView" aria-labelledby="todayTab">
+      <article class="hero-card">
+        <div class="hero-topline"><span>DEZE WEEK</span><span id="weekPercent">0%</span></div>
+        <h2 id="weekHeadline">Je week staat klaar</h2>
+        <div class="progress-track"><span id="weekProgress"></span></div>
+        <p id="weekSummary">0 van 0 trainingen voltooid</p>
+      </article>
+      <div class="section-heading">
+        <div><p class="eyebrow">VANDAAG</p><h2>Op je planning</h2></div>
+        <button class="text-button" data-action="add-workout">+ Training</button>
+      </div>
+      <div id="todayWorkouts" class="card-list"></div>
+      <div class="section-heading"><div><p class="eyebrow">SNEL STARTEN</p><h2>Mobiliteit</h2></div></div>
+      <div id="quickRoutines" class="routine-strip"></div>
+    </section>
+
+    <section class="view" id="weekView" aria-labelledby="weekTab">
+      <div class="page-heading"><p class="eyebrow">PLANNING</p><h2>Mijn week</h2><p>Plan, verplaats en voltooi je trainingen.</p></div>
+      <div class="week-toolbar">
+        <button class="icon-button" id="prevWeek" aria-label="Vorige week">‹</button>
+        <strong id="weekRange"></strong>
+        <button class="icon-button" id="nextWeek" aria-label="Volgende week">›</button>
+      </div>
+      <div id="weekCalendar" class="week-calendar"></div>
+      <button class="primary-button full-width" data-action="add-workout">Training toevoegen</button>
+    </section>
+
+    <section class="view" id="coachView" aria-labelledby="coachTab">
+      <div class="page-heading"><p class="eyebrow">BEWEGEN</p><h2>Mobility coach</h2><p>Kies een routine en volg hem stap voor stap.</p></div>
+      <div id="routineLibrary" class="card-list"></div>
+    </section>
+
+    <section class="view" id="progressView" aria-labelledby="progressTab">
+      <div class="page-heading"><p class="eyebrow">TERUGKIJKEN</p><h2>Voortgang</h2><p>Je trainingen, consistentie en kniereactie.</p></div>
+      <div id="statsGrid" class="stats-grid"></div>
+      <article class="garmin-card" id="garminSummary"></article>
+      <article class="chart-card"><div class="card-title-row"><h3>Trainingsminuten</h3><span>6 weken</span></div><div id="weeklyChart" class="bar-chart"></div></article>
+      <div class="section-heading"><div><p class="eyebrow">GESCHIEDENIS</p><h2>Recente sessies</h2></div></div>
+      <div id="historyList" class="card-list"></div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Hoofdnavigatie">
+    <button class="nav-item active" id="todayTab" data-view="todayView"><span>⌂</span>Vandaag</button>
+    <button class="nav-item" id="weekTab" data-view="weekView"><span>▦</span>Week</button>
+    <button class="nav-item" id="coachTab" data-view="coachView"><span>◉</span>Coach</button>
+    <button class="nav-item" id="progressTab" data-view="progressView"><span>↗</span>Voortgang</button>
+  </nav>
+
+  <dialog id="workoutDialog" class="sheet-dialog">
+    <form id="workoutForm" method="dialog">
+      <div class="dialog-header"><div><p class="eyebrow">TRAINING</p><h2 id="workoutDialogTitle">Training toevoegen</h2></div><button type="button" class="icon-button" data-close>×</button></div>
+      <input type="hidden" name="id">
+      <label>Naam<input name="name" required placeholder="Bijv. rustige duurloop"></label>
+      <div class="form-grid"><label>Sport<select name="category"><option>Hardlopen</option><option>Fietsen</option><option>Zwemmen</option><option>Kracht</option><option>Conditie</option><option>Mobiliteit</option><option>Herstel</option></select></label><label>Datum<input name="date" type="date" required></label></div>
+      <div class="form-grid"><label>Duur (min)<input name="duration" type="number" min="0" inputmode="numeric"></label><label>Afstand (km)<input name="distance" type="number" min="0" step="0.1" inputmode="decimal"></label></div>
+      <label>Intensiteit<input name="intensity" placeholder="Bijv. zone 2 of RPE 5"></label>
+      <label>Beschrijving<textarea name="description" rows="3" placeholder="Doel en opbouw van de training"></textarea></label>
+      <button class="primary-button full-width" value="save">Opslaan</button>
+      <button type="button" class="danger-button full-width hidden" id="deleteWorkout">Training verwijderen</button>
+    </form>
+  </dialog>
+
+  <dialog id="completeDialog" class="sheet-dialog">
+    <form id="completeForm" method="dialog">
+      <div class="dialog-header"><div><p class="eyebrow">AFRONDEN</p><h2>Hoe ging het?</h2></div><button type="button" class="icon-button" data-close>×</button></div>
+      <input type="hidden" name="workoutId">
+      <div class="form-grid"><label>Werkelijke duur<input name="actualDuration" type="number" min="0" inputmode="numeric"></label><label>Afstand (km)<input name="actualDistance" type="number" min="0" step="0.1" inputmode="decimal"></label></div>
+      <label>Kniepijn tijdens: <output id="painDuringOutput">0</output>/10<input name="painDuring" type="range" min="0" max="10" value="0"></label>
+      <label>Kniepijn erna: <output id="painAfterOutput">0</output>/10<input name="painAfter" type="range" min="0" max="10" value="0"></label>
+      <label>Notities<textarea name="notes" rows="3" placeholder="Wat viel op?"></textarea></label>
+      <button class="primary-button full-width" value="complete">Training voltooien</button>
+    </form>
+  </dialog>
+
+  <dialog id="routineDialog" class="sheet-dialog">
+    <form id="routineForm" method="dialog">
+      <div class="dialog-header"><div><p class="eyebrow">ROUTINE</p><h2>Routine bewerken</h2></div><button type="button" class="icon-button" data-close>×</button></div>
+      <input type="hidden" name="id"><label>Naam<input name="name" required></label><label>Omschrijving<textarea name="description" rows="2"></textarea></label>
+      <div id="routineExercisesEditor"></div>
+      <button type="button" class="secondary-button full-width" id="addExercise">+ Oefening toevoegen</button>
+      <button class="primary-button full-width" value="save">Routine opslaan</button>
+    </form>
+  </dialog>
+
+  <dialog id="playerDialog" class="player-dialog">
+    <div class="player-shell">
+      <div class="player-header"><button class="icon-button" id="closePlayer" aria-label="Stoppen">×</button><div><strong id="playerRoutineName"></strong><small id="playerProgress"></small></div><button class="text-button" id="skipExercise">Overslaan</button></div>
+      <div class="player-progress"><span id="playerProgressBar"></span></div>
+      <div class="exercise-illustration player-illustration" id="exerciseIllustration" aria-hidden="true"></div>
+      <p class="eyebrow" id="playerPhase">OEFENING</p><h2 id="playerExerciseName"></h2><p id="playerCue" class="player-cue"></p>
+      <div class="timer" id="timerDisplay">00:30</div>
+      <div class="timer-adjust"><button id="minusTime">−10s</button><button id="plusTime">+10s</button></div>
+      <button class="player-start" id="toggleTimer">Start</button>
+      <div class="player-controls"><button id="prevExercise">Vorige</button><button id="nextExercise">Volgende</button></div>
+    </div>
+  </dialog>
+
+  <dialog id="finishRoutineDialog" class="sheet-dialog">
+    <form id="finishRoutineForm" method="dialog">
+      <div class="dialog-header"><div><p class="eyebrow">KLAAR</p><h2>Routine voltooid</h2></div><button type="button" class="icon-button" data-close>×</button></div>
+      <label>Moeilijkheid: <output id="difficultyOutput">5</output>/10<input name="difficulty" type="range" min="1" max="10" value="5"></label>
+      <label>Kniepijn: <output id="routinePainOutput">0</output>/10<input name="pain" type="range" min="0" max="10" value="0"></label>
+      <label>Feedback<textarea name="feedback" rows="3" placeholder="Hoe voelde je mobiliteit?"></textarea></label>
+      <button class="primary-button full-width" value="save">Sessie opslaan</button>
+    </form>
+  </dialog>
+
+  <dialog id="settingsDialog" class="sheet-dialog">
+    <div class="dialog-header"><div><p class="eyebrow">GEGEVENS</p><h2>Back-up en import</h2></div><button type="button" class="icon-button" data-close>×</button></div>
+    <p class="muted">Je gegevens staan alleen op dit apparaat. Maak regelmatig een back-up voor je laptop.</p>
+    <label class="file-button">Weekplan importeren<input type="file" id="importWeekPlan" accept="application/json,.json"></label>
+    <p class="field-help">Voegt nieuwe trainingen toe en werkt alleen nog openstaande trainingen met hetzelfde ID bij.</p>
+    <button class="primary-button full-width" id="exportJson">Volledige back-up downloaden</button>
+    <label class="file-button">Back-up importeren<input type="file" id="importJson" accept="application/json,.json"></label>
+    <label class="file-button">Garmin-activiteiten importeren<input type="file" id="importGarmin" accept="application/json,.json"></label>
+    <p class="field-help">Garmin-data verrijkt alleen geregistreerde activiteiten. Mobility en handmatige sessies blijven apart bestaan.</p>
+    <button class="secondary-button full-width" id="exportCsv">Geschiedenis als CSV</button>
+    <div id="importPreview" class="import-preview hidden"></div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
