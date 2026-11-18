@@ -133,6 +133,8 @@
   <dialog id="settingsDialog" class="sheet-dialog">
     <div class="dialog-header"><div><p class="eyebrow">GEGEVENS</p><h2>Back-up en import</h2></div><button type="button" class="icon-button" data-close>×</button></div>
     <p class="muted">Je gegevens staan alleen op dit apparaat. Maak regelmatig een back-up voor je laptop.</p>
+    <button class="primary-button full-width" id="fetchWeekPlan">Nieuwste weekplan ophalen</button>
+    <p class="field-help">Haalt het actuele schema rechtstreeks op van GitHub. Je feedback en Garmin-data worden niet geüpload.</p>
     <label class="file-button">Weekplan importeren<input type="file" id="importWeekPlan" accept="application/json,.json"></label>
     <p class="field-help">Voegt nieuwe trainingen toe en werkt alleen nog openstaande trainingen met hetzelfde ID bij.</p>
     <button class="primary-button full-width" id="exportJson">Volledige back-up downloaden</button>

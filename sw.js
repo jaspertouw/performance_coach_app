@@ -1,4 +1,4 @@
-const CACHE='form-v4';
+const CACHE='form-v6';
 const ASSETS=['./','./index.html','./styles.css','./enhancements.css','./app.js','./manifest.webmanifest','./icons/icon.svg','./examples/garmin-import.example.json','./assets/exercises/ninety-ninety/hold.webp','./assets/exercises/low-lunge/hold.webp','./assets/exercises/adductor-rock-back/start.webp','./assets/exercises/adductor-rock-back/end.webp','./assets/exercises/cat-cow/start.webp','./assets/exercises/cat-cow/end.webp','./assets/exercises/open-book/start.webp','./assets/exercises/open-book/end.webp','./assets/exercises/deep-squat/hold.webp','./assets/exercises/knee-to-wall/start.webp','./assets/exercises/knee-to-wall/end.webp','./assets/exercises/spanish-squat/hold.webp','./assets/exercises/single-leg-calf-raise/start.webp','./assets/exercises/single-leg-calf-raise/end.webp'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));

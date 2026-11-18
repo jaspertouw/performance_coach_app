@@ -16,7 +16,9 @@ De knop **Garmin-activiteiten importeren** accepteert een JSON-array of een obje
 
 ## Weekplannen
 
-Een weekplan wordt op de laptop met Codex gemaakt en als JSON naar de iPhone gestuurd. Gebruik in de app **Gegevens → Weekplan importeren**. De preview toont hoeveel trainingen nieuw, gewijzigd of beschermd zijn.
+Een weekplan wordt op de laptop met Codex gemaakt en als `plans/current.json` gepubliceerd. Gebruik in de app **Gegevens → Nieuwste weekplan ophalen**. De preview toont hoeveel trainingen nieuw, gewijzigd of beschermd zijn. Handmatige bestandsimport blijft als terugvaloptie beschikbaar.
+
+Alleen het openbare weekschema komt in de repository. Voltooide feedback, Garmin-data, pijnscores en back-ups blijven lokaal en horen niet in `plans/current.json`.
 
 - Nieuwe workout-ID: training wordt toegevoegd.
 - Bestaand ID van een openstaande training: planning wordt bijgewerkt.

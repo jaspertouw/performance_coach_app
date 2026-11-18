@@ -1,0 +1,89 @@
+{
+  "type": "form-week-plan",
+  "schemaVersion": 1,
+  "weekId": "2026-W47",
+  "generatedAt": "2026-11-18T12:00:00+01:00",
+  "coachNote": "Weekplan 16–22 november. Reeds uitgevoerde sessies kunnen in de app als voltooid worden gemarkeerd. Houd alle duurtraining technisch en gecontroleerd.",
+  "workouts": [
+    {
+      "id": "plan_2026-W47_di_calisthenics",
+      "name": "Calisthenics + L-sit",
+      "category": "Kracht",
+      "date": "2026-11-17",
+      "duration": 42,
+      "distance": 0,
+      "intensity": "Technisch sterk; stop voor falen",
+      "description": "Pull-ups 4x6; dips 4x8; inverted rows 3x8-10; paused push-ups 3x8-12; single-leg seated pike lift 3x8/been; straight-arm support hold 3x20-30 sec; tuck L-sit 4x maximaal 15 sec."
+    },
+    {
+      "id": "plan_2026-W47_di_conditioning",
+      "name": "Conditioning — 12 min AMRAP",
+      "category": "Conditie",
+      "date": "2026-11-17",
+      "duration": 16,
+      "distance": 0,
+      "intensity": "RPE 7–8",
+      "description": "12 min AMRAP: 15 cal bike/row, 8 kettlebell swings, 6 burpees en 60 m farmer carry."
+    },
+    {
+      "id": "plan_2026-W47_wo_swim",
+      "name": "Swim — technique + aerobic",
+      "category": "Zwemmen",
+      "date": "2026-11-18",
+      "duration": 42,
+      "distance": 1.6,
+      "intensity": "Techniek + rustig aeroob",
+      "description": "Techniek en rustige aerobe duur; totaal circa 1600 m."
+    },
+    {
+      "id": "plan_2026-W47_wo_football",
+      "name": "Voetbal — 2×25 min",
+      "category": "Conditie",
+      "date": "2026-11-18",
+      "duration": 50,
+      "distance": 0,
+      "intensity": "Variabel",
+      "description": "Twee speelblokken van 25 minuten."
+    },
+    {
+      "id": "plan_2026-W47_do_leg_strength",
+      "name": "Running-focused leg strength",
+      "category": "Kracht",
+      "date": "2026-11-19",
+      "duration": 60,
+      "distance": 0,
+      "intensity": "RPE 6–7; gecontroleerd",
+      "description": "Goblet/front squat 3x6; Romanian deadlift 3x8; Bulgarian split squat 3x6/been; single-leg calf raise 3x12/been; lateral step-down 2x8/been met 3 sec eccentric; hamstring curl 2x10. Geen plyometrics."
+    },
+    {
+      "id": "plan_2026-W47_vr_knee_routine",
+      "name": "Korte knee routine",
+      "category": "Mobiliteit",
+      "date": "2026-11-20",
+      "duration": 15,
+      "distance": 0,
+      "intensity": "Rustig en gecontroleerd",
+      "description": "Rustdag met de bestaande routine van drie versterkende en twee mobility/stretch-oefeningen."
+    },
+    {
+      "id": "plan_2026-W47_za_bike",
+      "name": "Bike aerobic + seated accelerations",
+      "category": "Fietsen",
+      "date": "2026-11-21",
+      "duration": 70,
+      "distance": 0,
+      "intensity": "Z2 met 6×10 sec krachtig",
+      "description": "20 min rustig Z2; 6x10 sec technisch beheerste seated acceleration met telkens 2:50 rustig; resterende tijd Z2. Totale duur 60–75 min."
+    },
+    {
+      "id": "plan_2026-W47_zo_long_run",
+      "name": "Controlled long run",
+      "category": "Hardlopen",
+      "date": "2026-11-22",
+      "duration": 70,
+      "distance": 11.5,
+      "intensity": "Zone 2",
+      "description": "Beoogd 11–12 km op een vlakke route. Inkorten of stoppen wanneer pijn oploopt of het looppatroon verandert."
+    }
+  ]
+}
