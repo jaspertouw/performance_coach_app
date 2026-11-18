@@ -1,5 +1,7 @@
 # Bronnen van oefenbeelden
 
+De beelden voor Active Hamstring, Wall Slides, Reverse Plank, Shoulder/Lat Stretch, Wrist Mobility, Single-Leg Bridge, Side-Lying Hip Abduction, Side Plank, Standing Hip Hikes en Lateral Step-Down zijn op 18 november 2026 met OpenAI ImageGen speciaal voor deze app gegenereerd. Ze zijn visueel gecontroleerd, maar vervangen geen beoordeling door een fysiotherapeut of coach.
+
 Alle oefenbeelden in `assets/exercises/` komen uit [Open Exercise Illustrations](https://github.com/hitmanrepo/open-exercise-illustrations), versie geraadpleegd op 17 november 2026.
 
 - Licentie: [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/)

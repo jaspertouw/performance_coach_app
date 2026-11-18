@@ -8,7 +8,7 @@ const isoDate=(date=new Date())=>{const d=new Date(date);d.setMinutes(d.getMinut
 const esc=value=>String(value??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
 const nlDate=date=>new Intl.DateTimeFormat('nl-NL',{weekday:'short',day:'numeric',month:'short'}).format(new Date(`${date}T12:00:00`));
 const categoryIcon={Hardlopen:'↗',Fietsen:'◇',Zwemmen:'≈',Kracht:'◆',Conditie:'✦',Mobiliteit:'◉',Herstel:'☾'};
-const illustrationOptions={hip_switch:'90/90 heupzit',lunge:'Lage lunge',rockback:'Adductor rock-back',catcow:'Cat–cow',rotation:'Liggende rotatie',squat:'Diepe squat',knee_wall:'Knie naar muur',wall_sit:'Squat-houding',calf_raise:'Kuitheffing'};
+const illustrationOptions={hip_switch:'90/90 heupzit',lunge:'Lage lunge',rockback:'Adductor rock-back',catcow:'Cat–cow',rotation:'Liggende rotatie',squat:'Diepe squat',knee_wall:'Knie naar muur',wall_sit:'Squat-houding',calf_raise:'Kuitheffing',active_hamstring:'Actieve hamstring',wall_slides:'Wall slides',reverse_plank:'Reverse plank',lat_stretch:'Lat stretch',wrist_mobility:'Polsmobiliteit',single_leg_bridge:'Single-leg bridge',side_hip_abduction:'Zijwaartse heupabductie',side_plank:'Side plank',hip_hike:'Hip hike',lateral_step_down:'Lateral step-down'};
 const exerciseImages={
   hip_switch:['./assets/exercises/ninety-ninety/hold.webp'],
   lunge:['./assets/exercises/low-lunge/hold.webp'],
@@ -18,10 +18,20 @@ const exerciseImages={
   squat:['./assets/exercises/deep-squat/hold.webp'],
   knee_wall:['./assets/exercises/knee-to-wall/start.webp','./assets/exercises/knee-to-wall/end.webp'],
   wall_sit:['./assets/exercises/spanish-squat/hold.webp'],
-  calf_raise:['./assets/exercises/single-leg-calf-raise/start.webp','./assets/exercises/single-leg-calf-raise/end.webp']
+  calf_raise:['./assets/exercises/single-leg-calf-raise/start.webp','./assets/exercises/single-leg-calf-raise/end.webp'],
+  active_hamstring:['./assets/exercises/active-hamstring/hold.jpg'],
+  wall_slides:['./assets/exercises/wall-slides/hold.jpg'],
+  reverse_plank:['./assets/exercises/reverse-plank/hold.jpg'],
+  lat_stretch:['./assets/exercises/lat-stretch/hold.jpg'],
+  wrist_mobility:['./assets/exercises/wrist-mobility/hold.jpg'],
+  single_leg_bridge:['./assets/exercises/single-leg-bridge/hold.jpg'],
+  side_hip_abduction:['./assets/exercises/side-hip-abduction/hold.jpg'],
+  side_plank:['./assets/exercises/side-plank/hold.jpg'],
+  hip_hike:['./assets/exercises/hip-hike/hold.jpg'],
+  lateral_step_down:['./assets/exercises/lateral-step-down/hold.jpg']
 };
 
-function inferIllustration(ex){const text=`${ex.id||''} ${ex.name||''}`.toLowerCase();if(text.includes('90'))return'hip_switch';if(text.includes('lunge'))return'lunge';if(text.includes('adductor')||text.includes('rock'))return'rockback';if(text.includes('cat'))return'catcow';if(text.includes('book')||text.includes('rotation'))return'rotation';if(text.includes('deep squat')||text.includes('breath'))return'squat';if(text.includes('wall'))return'knee_wall';if(text.includes('spanish'))return'wall_sit';if(text.includes('calf'))return'calf_raise';return'squat'}
+function inferIllustration(ex){const text=`${ex.id||''} ${ex.name||''}`.toLowerCase();if(text.includes('hamstring'))return'active_hamstring';if(text.includes('wall slide'))return'wall_slides';if(text.includes('reverse plank'))return'reverse_plank';if(text.includes('lat stretch'))return'lat_stretch';if(text.includes('wrist'))return'wrist_mobility';if(text.includes('bridge'))return'single_leg_bridge';if(text.includes('abduction'))return'side_hip_abduction';if(text.includes('side plank'))return'side_plank';if(text.includes('hip hike'))return'hip_hike';if(text.includes('step-down'))return'lateral_step_down';if(text.includes('90'))return'hip_switch';if(text.includes('lunge')||text.includes('hip flexor'))return'lunge';if(text.includes('adductor')||text.includes('rock'))return'rockback';if(text.includes('cat'))return'catcow';if(text.includes('book')||text.includes('rotation'))return'rotation';if(text.includes('deep squat')||text.includes('breath'))return'squat';if(text.includes('wall sit')||text.includes('spanish'))return'wall_sit';if(text.includes('ankle')||text.includes('wall'))return'knee_wall';if(text.includes('calf'))return'calf_raise';return'squat'}
 function illustrationSvg(kind){
   const poses={
     hip_switch:'<circle class="pose-joint" cx="110" cy="42" r="12"/><path class="pose-line" d="M110 56v38M109 69L79 91M109 69l31 21M108 94L75 118l-31-3M111 94l36 21 28-13"/><path class="pose-arrow" d="M57 139c31 13 76 13 107-1"/>',
@@ -37,6 +47,73 @@ function illustrationSvg(kind){
 }
 function exerciseVisual(kind){const images=exerciseImages[kind];if(!images)return illustrationSvg(kind);return images.map((src,index)=>`<img src="${src}" alt="" class="exercise-photo frame-${index+1}">`).join('')}
 
+function routineLibrary(){return[
+  {id:'routine_morning_hip_a',name:'Hip Mobility — 7 min',version:2,description:'Actieve heup-, enkel- en squatmobiliteit voor een korte zelfstandige sessie.',exercises:[
+    {id:'hip_90_switches',name:'90/90 Hip Switches',cue:'Zit lang en roteer beide knieën gecontroleerd van links naar rechts.',seconds:60,rest:0,illustration:'hip_switch'},
+    {id:'hip_ankle_left',name:'Ankle Rocks — links',cue:'Houd de hiel laag en beweeg de knie rustig over de middelste tenen.',seconds:45,rest:0,illustration:'knee_wall'},
+    {id:'hip_ankle_right',name:'Ankle Rocks — rechts',cue:'Houd de hiel laag en beweeg de knie rustig over de middelste tenen.',seconds:45,rest:0,illustration:'knee_wall'},
+    {id:'hip_squat',name:'Deep Squat Hold',cue:'Houd de hele voet aan de grond, knieën volgen de tenen en adem rustig.',seconds:60,rest:0,illustration:'squat'},
+    {id:'hip_9090_left',name:'90/90 Hold — links',cue:'Blijf lang door je rug; maak de hoek kleiner als de knie protesteert.',seconds:60,rest:0,illustration:'hip_switch'},
+    {id:'hip_9090_right',name:'90/90 Hold — rechts',cue:'Blijf lang door je rug; maak de hoek kleiner als de knie protesteert.',seconds:60,rest:0,illustration:'hip_switch'},
+    {id:'hip_ham_left',name:'Active Hamstring — links',cue:'Hiel voor je, tenen omhoog, heupen naar achter en rug neutraal.',seconds:45,rest:0,illustration:'active_hamstring'},
+    {id:'hip_ham_right',name:'Active Hamstring — rechts',cue:'Hiel voor je, tenen omhoog, heupen naar achter en rug neutraal.',seconds:45,rest:0,illustration:'active_hamstring'}]},
+  {id:'routine_evening_a',name:'Quick Full Body — 5 min',version:2,description:'Snelle reset voor enkels, hamstrings, squat, bovenrug en schouders.',exercises:[
+    {id:'quick_ankles',name:'Ankle Rocks',cue:'Wissel halverwege van been; houd de hiel stevig op de grond.',seconds:45,rest:0,illustration:'knee_wall'},
+    {id:'quick_ham_left',name:'Active Hamstring — links',cue:'Beweeg vanuit de heup en houd de rug lang.',seconds:30,rest:0,illustration:'active_hamstring'},
+    {id:'quick_ham_right',name:'Active Hamstring — rechts',cue:'Beweeg vanuit de heup en houd de rug lang.',seconds:30,rest:0,illustration:'active_hamstring'},
+    {id:'quick_squat',name:'Deep Squat Hold',cue:'Adem laag en houd knieën en tenen in dezelfde richting.',seconds:60,rest:0,illustration:'squat'},
+    {id:'quick_book_left',name:'Open Book — links',cue:'Houd beide knieën bij elkaar en draai vanuit je bovenrug.',seconds:30,rest:0,illustration:'rotation'},
+    {id:'quick_book_right',name:'Open Book — rechts',cue:'Houd beide knieën bij elkaar en draai vanuit je bovenrug.',seconds:30,rest:0,illustration:'rotation'},
+    {id:'quick_wall',name:'Wall Slides',cue:'Ribben laag; beweeg alleen zo hoog als onderrug en armen gecontroleerd blijven.',seconds:60,rest:0,illustration:'wall_slides'}]},
+  {id:'routine_upper_body',name:'Upper Body Mobility — 8 min',version:2,description:'Gericht op zwemmen, overheadwerk, calisthenics en thoracale rotatie.',exercises:[
+    {id:'upper_book_left',name:'Open Book — links',cue:'Houd de knieën gestapeld en volg je hand met je ogen.',seconds:60,rest:0,illustration:'rotation'},
+    {id:'upper_book_right',name:'Open Book — rechts',cue:'Houd de knieën gestapeld en volg je hand met je ogen.',seconds:60,rest:0,illustration:'rotation'},
+    {id:'upper_wall',name:'Wall Slides — 2×8',cue:'Ribben laag en onderrug neutraal; beweeg langzaam.',seconds:90,rest:0,illustration:'wall_slides'},
+    {id:'upper_lat_left',name:'Shoulder/Lat Stretch — links',cue:'Duw je heupen terug en laat de borst zakken zonder de onderrug hol te trekken.',seconds:60,rest:0,illustration:'lat_stretch'},
+    {id:'upper_lat_right',name:'Shoulder/Lat Stretch — rechts',cue:'Duw je heupen terug en laat de borst zakken zonder de onderrug hol te trekken.',seconds:60,rest:0,illustration:'lat_stretch'},
+    {id:'upper_reverse',name:'Reverse Plank — 2×30 sec',cue:'Duw de vloer weg en houd schouders, heupen en hielen in één lijn.',seconds:75,rest:0,illustration:'reverse_plank'},
+    {id:'upper_wrist',name:'Wrist Mobility',cue:'Houd de handpalmen vlak en verplaats je gewicht langzaam; nooit forceren.',seconds:60,rest:0,illustration:'wrist_mobility'}]},
+  {id:'routine_full_body',name:'Full Body Mobility — 12 min',version:2,description:'Complete mobiliteit voor enkels, heupen, hamstrings, bovenrug en schouders.',exercises:[
+    {id:'full_ankles',name:'Ankle Rocks',cue:'Wissel halverwege; hiel blijft op de grond.',seconds:90,rest:0,illustration:'knee_wall'},
+    {id:'full_90',name:'90/90 Hip Switches',cue:'Roteer langzaam zonder je handen te gebruiken als dat technisch lukt.',seconds:60,rest:0,illustration:'hip_switch'},
+    {id:'full_ham_left',name:'Active Hamstring — links',cue:'Hiel voor, tenen omhoog en heupen gecontroleerd naar achter.',seconds:45,rest:0,illustration:'active_hamstring'},
+    {id:'full_ham_right',name:'Active Hamstring — rechts',cue:'Hiel voor, tenen omhoog en heupen gecontroleerd naar achter.',seconds:45,rest:0,illustration:'active_hamstring'},
+    {id:'full_lunge_left',name:'Hip Flexor Stretch — links',cue:'Span de achterste bil aan en houd de ribben laag.',seconds:45,rest:0,illustration:'lunge'},
+    {id:'full_lunge_right',name:'Hip Flexor Stretch — rechts',cue:'Span de achterste bil aan en houd de ribben laag.',seconds:45,rest:0,illustration:'lunge'},
+    {id:'full_squat',name:'Deep Squat Hold',cue:'Hele voet belast, knieën volgen de tenen en adem rustig.',seconds:60,rest:0,illustration:'squat'},
+    {id:'full_book_left',name:'Open Book — links',cue:'Draai vanuit de bovenrug en houd de knieën stil.',seconds:45,rest:0,illustration:'rotation'},
+    {id:'full_book_right',name:'Open Book — rechts',cue:'Draai vanuit de bovenrug en houd de knieën stil.',seconds:45,rest:0,illustration:'rotation'},
+    {id:'full_wall',name:'Wall Slides — 2×8',cue:'Ribben laag en beweeg gecontroleerd.',seconds:60,rest:0,illustration:'wall_slides'},
+    {id:'full_lat_left',name:'Shoulder/Lat Stretch — links',cue:'Borst richting vloer zonder de onderrug te overstrekken.',seconds:60,rest:0,illustration:'lat_stretch'},
+    {id:'full_lat_right',name:'Shoulder/Lat Stretch — rechts',cue:'Borst richting vloer zonder de onderrug te overstrekken.',seconds:60,rest:0,illustration:'lat_stretch'},
+    {id:'full_reverse',name:'Reverse Plank — 2×30 sec',cue:'Houd de heupen hoog en schouders actief.',seconds:60,rest:0,illustration:'reverse_plank'}]},
+  {id:'routine_extended_full',name:'Extended Full Body — 20 min',version:2,description:'Langere actieve routine met extra tijd voor heupen, enkels en overheadmobiliteit.',exercises:[
+    {id:'extended_ankles',name:'Ankle Rocks',cue:'Wissel halverwege en werk rustig door het beschikbare bereik.',seconds:90,rest:10,illustration:'knee_wall'},
+    {id:'extended_90',name:'90/90 Hip Switches',cue:'Blijf lang en roteer vanuit de heupen.',seconds:90,rest:10,illustration:'hip_switch'},
+    {id:'extended_ham_left',name:'Active Hamstring — links',cue:'Beweeg dynamisch vanuit de heup met een lange rug.',seconds:60,rest:0,illustration:'active_hamstring'},
+    {id:'extended_ham_right',name:'Active Hamstring — rechts',cue:'Beweeg dynamisch vanuit de heup met een lange rug.',seconds:60,rest:10,illustration:'active_hamstring'},
+    {id:'extended_lunge_left',name:'Hip Flexor Stretch — links',cue:'Achterste bil aanspannen; geen holle onderrug.',seconds:60,rest:0,illustration:'lunge'},
+    {id:'extended_lunge_right',name:'Hip Flexor Stretch — rechts',cue:'Achterste bil aanspannen; geen holle onderrug.',seconds:60,rest:10,illustration:'lunge'},
+    {id:'extended_9090_left',name:'90/90 Hold — links',cue:'Ontspan in het bereik zonder druk in de knie.',seconds:60,rest:0,illustration:'hip_switch'},
+    {id:'extended_9090_right',name:'90/90 Hold — rechts',cue:'Ontspan in het bereik zonder druk in de knie.',seconds:60,rest:10,illustration:'hip_switch'},
+    {id:'extended_squat',name:'Deep Squat Hold',cue:'Adem rustig en houd de voeten volledig belast.',seconds:90,rest:10,illustration:'squat'},
+    {id:'extended_book_left',name:'Open Book — links',cue:'Laat de rotatie uit de bovenrug komen.',seconds:60,rest:0,illustration:'rotation'},
+    {id:'extended_book_right',name:'Open Book — rechts',cue:'Laat de rotatie uit de bovenrug komen.',seconds:60,rest:10,illustration:'rotation'},
+    {id:'extended_wall',name:'Wall Slides',cue:'Beweeg langzaam met ribben laag.',seconds:90,rest:10,illustration:'wall_slides'},
+    {id:'extended_lat_left',name:'Shoulder/Lat Stretch — links',cue:'Houd de onderrug neutraal en adem uit in de positie.',seconds:60,rest:0,illustration:'lat_stretch'},
+    {id:'extended_lat_right',name:'Shoulder/Lat Stretch — rechts',cue:'Houd de onderrug neutraal en adem uit in de positie.',seconds:60,rest:10,illustration:'lat_stretch'},
+    {id:'extended_reverse',name:'Reverse Plank — 2×30 sec',cue:'Duw de vloer weg en houd de heupen hoog.',seconds:60,rest:10,illustration:'reverse_plank'},
+    {id:'extended_wrist',name:'Wrist Mobility',cue:'Verplaats je gewicht rustig en blijf ruim onder scherpe pijn.',seconds:60,rest:0,illustration:'wrist_mobility'}]},
+  {id:'routine_knee_a',name:'Knee Rehab — 20–25 min',version:2,description:'Heup- en kniesturing met gecontroleerde kracht. Stop of schaal terug bij toenemende scherpe pijn.',exercises:[
+    {id:'knee_bridge',name:'Single-Leg Bridge — 2×10/zijde',cue:'Houd het bekken horizontaal; druk via de hele voet en wissel per set.',seconds:240,rest:20,illustration:'single_leg_bridge'},
+    {id:'knee_abduction',name:'Side-Lying Hip Abduction — 2×12–15/zijde',cue:'Bekken gestapeld, tenen vooruit en til niet hoger dan je controle houdt.',seconds:240,rest:20,illustration:'side_hip_abduction'},
+    {id:'knee_sideplank',name:'Side Plank — 2×20–30 sec/zijde',cue:'Elleboog onder de schouder; lichaam lang en heupen hoog.',seconds:180,rest:20,illustration:'side_plank'},
+    {id:'knee_hiphike',name:'Standing Hip Hikes — 2×10/zijde',cue:'Sta lang op het steunbeen en beweeg alleen het bekken, niet de knie.',seconds:210,rest:20,illustration:'hip_hike'},
+    {id:'knee_stepdown',name:'Lateral Step-Down — 2×8/zijde',cue:'Zak drie seconden; knie blijft boven de middelste tenen en bekken blijft stabiel.',seconds:210,rest:20,illustration:'lateral_step_down'},
+    {id:'knee_wallsit',name:'Wall Sit — 3×30–45 sec',cue:'Knieën volgen de tenen; kies een pijnvrije hoek en houd druk gelijk verdeeld.',seconds:180,rest:20,illustration:'wall_sit'},
+    {id:'knee_finish',name:'Hip Flexor/TFL Stretch',cue:'Wissel halverwege; houd de romp lang en forceer de buitenkant van de knie niet.',seconds:90,rest:0,illustration:'lunge'}]}
+]}
+
 function sampleData(){
   const today=new Date();
   const monday=new Date(today);monday.setDate(today.getDate()-((today.getDay()+6)%7));
@@ -46,20 +123,7 @@ function sampleData(){
     {id:'sample_swim_tech',name:'Techniekzwemmen',category:'Zwemmen',date:onDay(3),duration:50,distance:1.5,intensity:'RPE 5',description:'Techniekblokken met rustig herstel.',status:'planned',sample:true},
     {id:'sample_cycle_endurance',name:'Duurfietsrit',category:'Fietsen',date:onDay(5),duration:90,distance:35,intensity:'Zone 2',description:'Vlak parcours, constante rustige inspanning.',status:'planned',sample:true},
     {id:'sample_mobility',name:'Knie & heup mobiliteit',category:'Mobiliteit',date:onDay(0),duration:18,distance:0,intensity:'Rustig',description:'Korte herstelroutine.',status:'planned',sample:true}
-  ],routines:[
-    {id:'routine_morning_hip_a',name:'Morning Hip Mobility A',version:1,description:'Open je heupen en start soepel aan de dag.',exercises:[
-      {id:'ex_90_90',name:'90/90 Hip Switches',cue:'Blijf lang door je rug en beweeg gecontroleerd.',seconds:45,rest:15,side:'beide'},
-      {id:'ex_lunge',name:'Low Lunge Reach',cue:'Span je bil aan en reik rustig omhoog.',seconds:40,rest:15,side:'links/rechts'},
-      {id:'ex_adductor',name:'Adductor Rock Back',cue:'Houd je rug neutraal en schuif je heup naar achter.',seconds:45,rest:0,side:'links/rechts'}]},
-    {id:'routine_evening_a',name:'Evening Mobility A',version:1,description:'Rustige full-body mobiliteit voor de avond.',exercises:[
-      {id:'ex_catcow',name:'Cat–Cow',cue:'Beweeg wervel voor wervel en adem langzaam.',seconds:50,rest:10,side:'beide'},
-      {id:'ex_rotation',name:'Quadruped Thoracic Rotation',cue:'Houd je heupen stil en draai je borst rustig open.',seconds:45,rest:15,side:'links/rechts'},
-      {id:'ex_breath',name:'Deep Squat Breathing',cue:'Duw knieën zacht naar buiten en adem laag.',seconds:60,rest:0,side:'beide'}]},
-    {id:'routine_knee_a',name:'Knee Rehab & Mobility A',version:1,description:'Gecontroleerde basisroutine voor knie en enkel.',exercises:[
-      {id:'ex_knee_wall',name:'Half-kneeling Ankle Rocks',cue:'Houd je voorste hiel op de grond en beweeg je knie over je tenen.',seconds:45,rest:15,side:'links/rechts'},
-      {id:'ex_spanish',name:'Wall Sit',cue:'Druk je rug tegen de muur en houd je knieën stabiel boven je voeten.',seconds:35,rest:25,side:'beide'},
-      {id:'ex_calf',name:'Single-leg Calf Raise',cue:'Beweeg langzaam en houd je enkel recht.',seconds:40,rest:0,side:'links/rechts'}]}
-  ],sessions:[],garminActivities:[],healthSnapshots:[]};
+  ],routines:routineLibrary(),sessions:[],garminActivities:[],healthSnapshots:[]};
 }
 
 function openDb(){return new Promise((resolve,reject)=>{const req=indexedDB.open(DB_NAME,DB_VERSION);req.onupgradeneeded=()=>req.result.createObjectStore(STORE);req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)})}
@@ -146,5 +210,5 @@ function bindEvents(){
   document.querySelector('#exportJson').onclick=exportJson;document.querySelector('#exportCsv').onclick=exportCsv;document.querySelector('#fetchWeekPlan').onclick=fetchLatestWeekPlan;document.querySelector('#importWeekPlan').onchange=e=>{const file=e.target.files[0];if(file)previewWeekPlan(file)};document.querySelector('#importJson').onchange=e=>{const file=e.target.files[0];if(file)previewImport(file)};document.querySelector('#importGarmin').onchange=e=>{const file=e.target.files[0];if(file)importGarminFile(file)};
 }
 
-async function init(){state.data=await loadData();state.data.garminActivities??=[];state.data.healthSnapshots??=[];const sampleUpdates={ex_rotation:{name:'Quadruped Thoracic Rotation',cue:'Houd je heupen stil en draai je borst rustig open.'},ex_knee_wall:{name:'Half-kneeling Ankle Rocks',cue:'Houd je voorste hiel op de grond en beweeg je knie over je tenen.'},ex_spanish:{name:'Wall Sit',cue:'Druk je rug tegen de muur en houd je knieën stabiel boven je voeten.'}};for(const routine of state.data.routines)for(const ex of routine.exercises){ex.illustration??=inferIllustration(ex);if(sampleUpdates[ex.id])Object.assign(ex,sampleUpdates[ex.id])}bindEvents();render();if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});if(!localStorage.getItem('form-welcomed')){toast('Voorbeeldschema geladen — pas het gerust aan');localStorage.setItem('form-welcomed','1')}}
+async function init(){state.data=await loadData();state.data.garminActivities??=[];state.data.healthSnapshots??=[];state.data.routines??=[];let libraryChanged=false;const library=routineLibrary();for(const incoming of library){const index=state.data.routines.findIndex(r=>r.id===incoming.id);if(index<0){state.data.routines.push(incoming);libraryChanged=true}else if((state.data.routines[index].version||0)<incoming.version){state.data.routines[index]=incoming;libraryChanged=true}}const builtInIds=new Set(library.map(r=>r.id)),routineMap=new Map(state.data.routines.map(r=>[r.id,r])),orderedRoutines=[...library.map(r=>routineMap.get(r.id)),...state.data.routines.filter(r=>!builtInIds.has(r.id))];if(orderedRoutines.some((r,i)=>r!==state.data.routines[i]))libraryChanged=true;state.data.routines=orderedRoutines;for(const routine of state.data.routines)for(const ex of routine.exercises)ex.illustration??=inferIllustration(ex);if(libraryChanged)await saveData();bindEvents();render();if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});if(!localStorage.getItem('form-welcomed')){toast('Voorbeeldschema geladen — pas het gerust aan');localStorage.setItem('form-welcomed','1')}}
 init().catch(error=>{document.body.innerHTML=`<main class="view active"><div class="empty-state"><h2>De app kon niet starten</h2><p>${esc(error.message)}</p></div></main>`});
