@@ -47,6 +47,7 @@
       </div>
       <div id="weekCalendar" class="week-calendar"></div>
       <button class="primary-button full-width" data-action="add-workout">Training toevoegen</button>
+      <button class="secondary-button full-width" id="openStrengthLog">Krachtlogboek</button>
     </section>
 
     <section class="view" id="coachView" aria-labelledby="coachTab">
@@ -130,6 +131,20 @@
     </form>
   </dialog>
 
+  <dialog id="strengthDialog" class="sheet-dialog">
+    <div class="dialog-header"><h2>Krachtlogboek</h2><button type="button" class="icon-button" data-close aria-label="Sluiten">×</button></div>
+    <form id="strengthForm">
+      <label>Datum<input type="date" name="date" required></label>
+      <label>Oefening<input name="exercise" list="strengthExercises" required maxlength="100" placeholder="Bijv. Goblet squat"></label>
+      <datalist id="strengthExercises"></datalist>
+      <div id="strengthSets"></div>
+      <button type="button" id="addStrengthSet" class="secondary-button full-width">Set toevoegen</button>
+      <button class="primary-button full-width">Sets opslaan</button>
+      <p id="strengthStatus" role="status"></p>
+    </form>
+    <h3>Eerdere sets</h3>
+    <div id="strengthHistory"></div>
+  </dialog>
   <dialog id="settingsDialog" class="sheet-dialog">
     <div class="dialog-header"><div><p class="eyebrow">GEGEVENS</p><h2>Back-up en import</h2></div><button type="button" class="icon-button" data-close>×</button></div>
     <p class="muted">Je gegevens staan alleen op dit apparaat. Maak regelmatig een back-up voor je laptop.</p>
@@ -146,6 +161,7 @@
   </dialog>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="./strength.js"></script>
   <script type="module" src="./app.js"></script>
 </body>
 </html>
